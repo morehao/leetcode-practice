@@ -13,21 +13,36 @@
 function exchangeElem (i, j, arr) {
   if (i < 0 || i > arr.length) return;
   if (j < 0 || j > arr.length) return;
-  if (arr[i] < arr[j]) {
-    const temp = arr[j];
-    arr[j] = arr[i];
-    arr[i] = temp;
-  }
+  const temp = arr[j];
+  arr[j] = arr[i];
+  arr[i] = temp;
 }
 
 // 冒泡排序
+// const sortArray = nums => {
+//   nums.forEach(()=> {
+//     for (let i = 0; i < nums.length - 1; i++) {
+//       if (nums[i + 1] < nums[i]) exchangeElem(i + 1, i, nums);
+//     }
+//   })
+//   return nums;
+// };
+
+// 冒泡排序之快慢指针
 const sortArray = nums => {
-  nums.forEach(()=> {
-    for (let i = 0; i < nums.length - 1; i++) {
-      if (nums[i + 1] < nums[i]) exchangeElem(i + 1, i, nums);
+  let [ low, high ] = [ 0, nums.length - 1 ];
+  while(low < high) {
+    for (let i = low; i < high; ++i) {
+      if (nums[i + 1] < nums[i]) exchangeElem(i, i + 1, nums);
     }
-  })
+    --high;
+    for (let i = high; i > low; --i) {
+      if (nums[i] < nums[i - 1]) exchangeElem(i, i - 1, nums);
+    }
+    ++low;
+  }
   return nums;
-};
+}
+
 // @lc code=end
 
