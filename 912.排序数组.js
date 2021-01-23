@@ -60,17 +60,72 @@ function exchangeElem (i, j, arr) {
 // }
 
 // 插入排序
-const sortArray = nums => {
-  for (let i = 1; i < nums.length; i++) {
-    const key = nums[i];
-    let j = i - 1;
-    while(j >= 0 && nums[j] > key) {
-      nums[j + 1] = nums[j];
-      j--;
+// const sortArray = nums => {
+//   for (let i = 1; i < nums.length; i++) {
+//     const key = nums[i];
+//     let j = i;
+//     while(j > 0 && nums[j - 1] > key) {
+//       nums[j] = nums[j - 1];
+//       j--;
+//     }
+//     nums[j] = key
+//   }
+//   return nums;
+// }
+
+// 归并排序
+function merge (leftNums, rightNums) {
+  const result = [];
+  while(leftNums.length && rightNums.length) {
+    if (leftNums[0] <= rightNums[0]) {
+      result.push(leftNums.shift());
+    } else {
+      result.push(rightNums.shift());
     }
-    nums[j + 1] = key
   }
-  return nums;
+  while(leftNums.length) result.push(leftNums.shift())
+  while(rightNums.length) result.push(rightNums.shift())
+  return result;
 }
+function mergeSort(nums) {
+  const len = nums.length;
+  if (len <= 1) return nums;
+  const midIndex = Math.floor(len / 2);
+  const leftNums = nums.slice(0, midIndex);
+  const rightNums = nums.slice(midIndex);
+  return merge(mergeSort(leftNums), mergeSort(rightNums));
+}
+const sortArray = nums => {
+  return mergeSort(nums);
+}
+
+// 快速排序
+// function partition (left, right, nums) {
+//   const pivot = nums[Math.floor((right + left) / 2)];
+//   let [ i, j ] = [ left, right ];
+//   while(i <= j) {
+//     while(nums[i] < pivot) i++;
+//     while(pivot < nums[j]) j--;
+//     if (i <= j) {
+//       exchangeElem(i, j, nums);
+//       i++;
+//       j--;
+//     }
+//   }
+//   return i;
+// }
+
+// function quickSort (left, right, nums) {
+//   if (nums.length < 2) return;
+//   const pivotIndex = partition(left, right, nums);
+//   if (left < pivotIndex - 1) quickSort(left, pivotIndex - 1, nums);
+//   if (right > pivotIndex) quickSort(pivotIndex, right, nums);
+// }
+
+// const sortArray = nums => {
+//   if (nums.length < 2) return nums;
+//   quickSort(0, nums.length - 1, nums);
+//   return nums;
+// }
 // @lc code=end
 
