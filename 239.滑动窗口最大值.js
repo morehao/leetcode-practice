@@ -29,19 +29,13 @@ class MyQueue {
   }
 
   push(val) {
-    const nums = this.list;
     // 队列从队头到队尾递减
-    while (nums[nums.length - 1] < val) {
-      nums.pop();
-    }
-    nums.push(val);
+    while (this.list[this.list.length - 1] < val) this.list.pop();
+    this.list.push(val);
   }
 
   shift(val) {
-    let nums = this.list;
-    if (nums[0] === val) {
-      nums.shift();
-    }
+    if (this.list[0] === val) this.list.shift();
   }
 
   max() {
@@ -50,13 +44,11 @@ class MyQueue {
 }
 const maxSlidingWindow = (nums, k) => {
   if (k === 0) return [];
-  const result = [];
-  const queue = new MyQueue([]);
+  const [ queue, result ] = [ new MyQueue([]), [] ];
   // 构造第一个窗口
   for (let i = 0; i < k - 1; i++) {
     queue.push(nums[i]);
   }
-
   // 开始滑动窗口
   for (let i = k - 1; i < nums.length; i++) {
     // 右边新元素进入队列

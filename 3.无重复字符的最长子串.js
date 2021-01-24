@@ -9,18 +9,15 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+const lengthOfLongestSubstring = (s) => {
   let [ slideWindows, max ] = [ [], 0 ];
-  const uniqueMap = new Map();
   for(let item of s) {
-    if (uniqueMap.has(item)) {
-      const deletedIndex = slideWindows.findIndex(e => e === item);
-      slideWindows = slideWindows.slice(deletedIndex + 1).concat(item);
-    } else {
-      slideWindows.push(item);
+    const deletedIndex = slideWindows.findIndex(e => e === item);
+    if (deletedIndex > -1) {
+      slideWindows.splice(0, deletedIndex + 1);
     }
-    uniqueMap.set(item, item);
-    max = slideWindows.length > max ? slideWindows.length : max;
+    slideWindows.push(item);
+    max = Math.max(slideWindows.length, max);
   }
   return max;
 };
