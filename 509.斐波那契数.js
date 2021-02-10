@@ -9,6 +9,11 @@
  * @param {number} N
  * @return {number}
  */
+// const fib = N => {
+//   if (N < 2) return N;
+//   if (N === 2) return 1;
+//   return fib(N - 2) + fib(N - 1);
+// }
 const fib = N => {
   if (N < 2) return N;
   if (N === 2) return 1;
@@ -20,5 +25,6 @@ const fib = N => {
   }
   return curr;
 };
+
 // @lc code=end
 
